@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ListApplication</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_add_section">Add Section</string>
+    <string name="add_section">Add Section</string>
+    <string name="action_add_item">Add Item</string>
+    <string name="item_name">Item Name</string>
+    <string name="description">Description</string>
+    <string name="save">Save</string>
+    <string name="ok">OK</string>
+    <string name="delete_all">Delete All</string>
+    <string name="cancel">Cancel</string>
+    <string name="title_activity_section_view">SectionViewActivity</string>
+    <string name="title_activity_add_item">AddItemActivity</string>
+
+</resources>
