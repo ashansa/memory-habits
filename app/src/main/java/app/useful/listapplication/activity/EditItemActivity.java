@@ -25,6 +25,7 @@ public class EditItemActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         if(intent != null && intent.hasExtra(Constants.ITEM)) {
             itemToUpdate = (Item) intent.getSerializableExtra(Constants.ITEM);
@@ -74,5 +75,12 @@ public class EditItemActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public Intent getSupportParentActivityIntent() {
+        Intent intent = new Intent(this, SectionViewActivity.class);
+        intent.putExtra(Constants.SECTION_NAME, itemToUpdate.getSectionName());
+        return intent;
     }
 }

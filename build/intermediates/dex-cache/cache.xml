@@ -16,6 +16,20 @@
         <dex dex="/Users/ashansa/AndroidStudioProjects/ListApplication/app/build/intermediates/pre-dexed/debug/classes-bed625e575e0ff75bc7fe3493468483f0d76af38.jar" />
     </item>
     <item
+        jar="/Users/ashansa/softwares/github/myProjects/memory-habits/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/Users/ashansa/softwares/github/myProjects/memory-habits/app/build/intermediates/pre-dexed/debug/classes-868e63187fdc54735c0e94d5c0b6e10e7d961ab8.jar" />
+    </item>
+    <item
+        jar="/Users/ashansa/softwares/github/myProjects/memory-habits/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/Users/ashansa/softwares/github/myProjects/memory-habits/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-6aeb5317f510d138117339ab23e5920e51d6c738.jar" />
+    </item>
+    <item
         jar="/Users/ashansa/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
         jumboMode="false"
         revision="21.1.2"
@@ -28,6 +42,13 @@
         revision="21.1.2"
         sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
         <dex dex="/Users/ashansa/AndroidStudioProjects/ListApplication/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-de0cbe028073b5ba082660dbb36279453d181148.jar" />
+    </item>
+    <item
+        jar="/Users/ashansa/softwares/github/myProjects/memory-habits/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/Users/ashansa/softwares/github/myProjects/memory-habits/app/build/intermediates/pre-dexed/debug/classes-2919de37b1ea79eb632e582fbdc50cba6154518c.jar" />
     </item>
 
 </items>

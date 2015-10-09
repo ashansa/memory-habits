@@ -18,7 +18,8 @@
         </activity>
         <activity
             android:name=".activity.SectionViewActivity"
-            android:label="@string/title_activity_section_view" >
+            android:label="@string/title_activity_section_view"
+            android:parentActivityName=".activity.MainActivity">
         </activity>
         <activity
             android:name=".activity.AddItemActivity"

@@ -22,6 +22,8 @@ public class AddItemActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         Intent intent = getIntent();
         if(intent != null) {
             if (intent.hasExtra(Constants.SECTION_NAME)) {
@@ -77,7 +79,7 @@ public class AddItemActivity extends ActionBarActivity {
             case R.id.save:
                 EditText itemName = (EditText) findViewById(R.id.item_name);
                 EditText description = (EditText) findViewById(R.id.item_description);
-                System.out.println("... going to set rating value : "+ ratingValue);
+                System.out.println("... going to set rating value : " + ratingValue);
                 Item newItem = MainActivity.getDBHandler().createItem(itemName.getText().toString(),
                         description.getText().toString(), (int) ratingValue, sectionName);
                 Intent intent = new Intent(this, SectionViewActivity.class);
@@ -93,5 +95,12 @@ public class AddItemActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public Intent getSupportParentActivityIntent() {
+        Intent intent = new Intent(this, SectionViewActivity.class);
+        intent.putExtra(Constants.SECTION_NAME, sectionName);
+        return intent;
     }
 }

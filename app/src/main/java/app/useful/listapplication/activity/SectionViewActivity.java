@@ -37,6 +37,7 @@ public class SectionViewActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_section_view);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         intent = getIntent();
         if(intent != null) {
@@ -77,29 +78,6 @@ public class SectionViewActivity extends ActionBarActivity {
                 mActionMode = SectionViewActivity.this.startActionMode(mActionModeCallback);
                 view.setSelected(true);
 
-
-                // dialog box
-                /*AlertDialog myQuittingDialogBox = new AlertDialog.Builder(SectionViewActivity.this)
-                        //set message, title, and icon
-                        .setTitle("Delete Item?")
-                        //.setMessage("Do you want to delete the item ?")
-                        .setIcon(R.drawable.ic_delete_black_24dp)
-
-                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                dbHandler.deleteItem(items.get(position));
-                                updateView();
-                            }
-                        })
-
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .create();
-                myQuittingDialogBox.show();*/
                 return true;
             }
         });
@@ -139,6 +117,10 @@ public class SectionViewActivity extends ActionBarActivity {
                     intent.putExtra(Constants.ITEM, selectedItem);
                     startActivity(intent);
                     return true;
+                /*case R.id.home:
+                    System.out.println("==home +++++========");
+                    SectionViewActivity.this.finish();
+                    return true;*/
                 default:
                     return false;
             }
@@ -149,8 +131,6 @@ public class SectionViewActivity extends ActionBarActivity {
         public void onDestroyActionMode(ActionMode mode) {
             mActionMode = null;
         }
-
-        public void setSelectedItem() {}
     };
 
     private ListView updateView() {
