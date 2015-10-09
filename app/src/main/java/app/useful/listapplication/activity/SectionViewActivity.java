@@ -3,6 +3,7 @@ package app.useful.listapplication.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.ActionMode;
@@ -32,6 +33,7 @@ public class SectionViewActivity extends ActionBarActivity {
     String sectionName;
 
     Item selectedItem;
+    View selectedView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class SectionViewActivity extends ActionBarActivity {
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long id) {
 
                 selectedItem = items.get(position);
+                selectedView = view;
 
                //action menu
                 if (mActionMode != null) {
@@ -77,7 +80,8 @@ public class SectionViewActivity extends ActionBarActivity {
                 // Start the CAB using the ActionMode.Callback defined above
                 mActionMode = SectionViewActivity.this.startActionMode(mActionModeCallback);
                 view.setSelected(true);
-
+                view.setBackgroundColor(Color.parseColor("#8ad5f0"));
+                getSupportActionBar().hide();
                 return true;
             }
         });
@@ -117,10 +121,6 @@ public class SectionViewActivity extends ActionBarActivity {
                     intent.putExtra(Constants.ITEM, selectedItem);
                     startActivity(intent);
                     return true;
-                /*case R.id.home:
-                    System.out.println("==home +++++========");
-                    SectionViewActivity.this.finish();
-                    return true;*/
                 default:
                     return false;
             }
@@ -130,6 +130,10 @@ public class SectionViewActivity extends ActionBarActivity {
         @Override
         public void onDestroyActionMode(ActionMode mode) {
             mActionMode = null;
+            if(selectedView != null) {
+                selectedView.setBackgroundColor(Color.TRANSPARENT);
+            }
+            getSupportActionBar().show();
         }
     };
 
@@ -175,23 +179,23 @@ public class SectionViewActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_add_item) {
-            //TODO call add item activity
-/*
-            Item newItem = dbHandler.createItem("aa", "desc", sectionName);
-            itemArrayAdapter.add(newItem);*/
-            Intent intent = new Intent(this, AddItemActivity.class);
-            intent.putExtra(Constants.SECTION_NAME, sectionName);
-            startActivity(intent);
-        } else if(id == R.id.delete_all) {
-            recreateTable();
-        } else if(id == R.id.populate) {
-            for (int i = 0; i < 5; i++) {
-                Item newItem = dbHandler.createItem(i +"aa", i+"desc", 1, sectionName);
-                itemArrayAdapter.add(newItem);
-            }
+        switch (id) {
+            case R.id.action_add_item:
+                Intent intent = new Intent(this, AddItemActivity.class);
+                intent.putExtra(Constants.SECTION_NAME, sectionName);
+                startActivity(intent);
+                break;
+            case R.id.delete_all:
+                recreateTable();
+                break;
+            case R.id.populate:
+                for (int i = 0; i < 5; i++) {
+                    Item newItem = dbHandler.createItem(i +"aa", i+"desc", 1, sectionName);
+                    itemArrayAdapter.add(newItem);
+                }
+                break;
         }
+
         itemArrayAdapter.notifyDataSetChanged();
         return super.onOptionsItemSelected(item);
     }

@@ -39,15 +39,15 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String TABLE_ITEMS = "items";
     private static final String COLUMN_ITEM = "item";
     private static final String COLUMN_DESCRIPTION = "description";
-    private static final String RATING = "rating";
+    private static final String COLUMN_RATING = "rating";
 
     private static final String CREATE_ITEMS_TABLE = "create table " + TABLE_ITEMS + "( " + COLUMN_ID +
             " integer primary key autoincrement, " + COLUMN_ITEM + " text not null, " +
-            COLUMN_DESCRIPTION + " text not null, " + RATING + " integer not null, " + COLUMN_SECTION + " text not null );";
+            COLUMN_DESCRIPTION + " text not null, " + COLUMN_RATING + " integer not null, " + COLUMN_SECTION + " text not null );";
 
     private static final String DROP_ITEMS_TABLE = "DROP TABLE IF EXISTS " + TABLE_ITEMS;
 
-    private String[] itemTableAllColumns = { COLUMN_ID, COLUMN_ITEM, COLUMN_DESCRIPTION, RATING, COLUMN_SECTION};
+    private String[] itemTableAllColumns = { COLUMN_ID, COLUMN_ITEM, COLUMN_DESCRIPTION, COLUMN_RATING, COLUMN_SECTION};
 
 
     public DBHandler(Context context) {
@@ -118,7 +118,7 @@ public class DBHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_ITEM, itemName);
         values.put(COLUMN_DESCRIPTION, description);
-        values.put(RATING, rating);
+        values.put(COLUMN_RATING, rating);
         values.put(COLUMN_SECTION, sectionName);
         long insertId = database.insert(TABLE_ITEMS, null, values);
         Cursor cursor = database.query(TABLE_ITEMS, itemTableAllColumns, COLUMN_ID+ " = " + insertId, null,
@@ -129,9 +129,14 @@ public class DBHandler extends SQLiteOpenHelper {
         return newItem;
     }
 
-    public Item updateItem(Item item) {
+    public void updateItem(Item item) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ITEM, item.getItemName());
+        values.put(COLUMN_DESCRIPTION, item.getDescription());
+        values.put(COLUMN_RATING, item.getRating());
+        values.put(COLUMN_SECTION, item.getSectionName());
+        database.update(TABLE_ITEMS, values, COLUMN_ID + "=" + item.getId(), null);
         System.out.println("...... in db update method ..");
-        return null;
     }
 
     public void deleteItem(Item item) {

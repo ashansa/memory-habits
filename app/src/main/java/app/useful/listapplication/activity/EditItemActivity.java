@@ -61,7 +61,7 @@ public class EditItemActivity extends ActionBarActivity {
                 System.out.println("... going to set rating value : "+ ratingBar.getRating());
                 itemToUpdate.setRating((long) ratingBar.getRating());
                 itemToUpdate.setDescription(editTextDescription.getText().toString());
-                Item updatedItem = MainActivity.getDBHandler().updateItem(itemToUpdate);
+                MainActivity.getDBHandler().updateItem(itemToUpdate);
                 Intent intent = new Intent(this, SectionViewActivity.class);
                 intent.putExtra(Constants.SECTION_NAME, itemToUpdate.getSectionName());
                 startActivity(intent);
