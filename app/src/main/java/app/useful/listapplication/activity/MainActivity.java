@@ -18,14 +18,14 @@ import java.util.List;
 
 import app.useful.listapplication.Constants;
 import app.useful.listapplication.R;
-import app.useful.listapplication.dbconnector.SectionTableHandler;
+import app.useful.listapplication.dbconnector.DBHandler;
 import app.useful.listapplication.dbconnector.dao.Section;
 
 
 public class MainActivity extends ActionBarActivity{
 
     ArrayAdapter<Section> sectionArrayAdapter;
-    SectionTableHandler sectionTableHandler;
+    private static DBHandler DBHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +34,11 @@ public class MainActivity extends ActionBarActivity{
         setContentView(R.layout.activity_main);
 
         try {
-            sectionTableHandler = new SectionTableHandler(this);
-            sectionTableHandler.open();
-            final List<Section> allSections = sectionTableHandler.getAllSections();
+
+            DBHandler = new DBHandler(this);
+            DBHandler.open();
+
+            final List<Section> allSections = DBHandler.getAllSections();
             sectionArrayAdapter = new ArrayAdapter<Section>(this, android.R.layout.simple_list_item_1, allSections);
             ListView listView = (ListView)findViewById(R.id.section_listView);
             listView.setAdapter(sectionArrayAdapter);
@@ -99,13 +101,9 @@ public class MainActivity extends ActionBarActivity{
             public void onClick(DialogInterface dialog, int which) {
                 String newSectionName = input.getText().toString();
                 //store sections in db
-                try {
-                    sectionTableHandler.open();
-                    Section section = sectionTableHandler.createSection(newSectionName);
-                    sectionArrayAdapter.add(section);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                Section section = DBHandler.createSection(newSectionName);
+                sectionArrayAdapter.add(section);
+
             }
         });
         addSectionBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -118,8 +116,12 @@ public class MainActivity extends ActionBarActivity{
     }
 
     private void recreateTable() {
-        sectionTableHandler.recreateTable();
-        List<Section> allSections = sectionTableHandler.getAllSections();
+        DBHandler.recreateSectionsTable();
+        List<Section> allSections = DBHandler.getAllSections();
         sectionArrayAdapter = new ArrayAdapter<Section>(this, android.R.layout.simple_list_item_1, allSections);
+    }
+
+    public static DBHandler getDBHandler() {
+        return DBHandler;
     }
 }

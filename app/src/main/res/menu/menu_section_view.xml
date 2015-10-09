@@ -6,12 +6,20 @@
     <item
         android:id="@+id/action_add_item"
         android:title="@string/action_add_item"
+        android:icon="@drawable/add"
         android:orderInCategory="100"
-        app:showAsAction="never" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/delete_all"
         android:title="@string/delete_all"
+        android:icon="@drawable/delete"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/populate"
+        android:title="Populate"
         android:orderInCategory="100"
         app:showAsAction="never" />
 

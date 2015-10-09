@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.RatingBar;
 
 import app.useful.listapplication.Constants;
 import app.useful.listapplication.R;
@@ -15,6 +16,7 @@ import app.useful.listapplication.dbconnector.dao.Item;
 public class AddItemActivity extends ActionBarActivity {
 
     String sectionName;
+    static float ratingValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +26,20 @@ public class AddItemActivity extends ActionBarActivity {
         if(intent != null) {
             if (intent.hasExtra(Constants.SECTION_NAME)) {
                 sectionName = intent.getStringExtra(Constants.SECTION_NAME);
+                addRatingBarListener();
             }
         }
+    }
+
+    private void addRatingBarListener() {
+        RatingBar rating = (RatingBar) findViewById(R.id.rating);
+        rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                ratingValue = rating;
+                System.out.println("----- rating changed : " + rating);
+            }
+        });
     }
 
 
@@ -44,15 +58,38 @@ public class AddItemActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+       /* if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.save) {
             EditText itemName = (EditText) findViewById(R.id.item_name);
             EditText description = (EditText) findViewById(R.id.item_description);
-            Item newItem = SectionViewActivity.getItemTableHandler().createItem(itemName.getText().toString(),
-                    description.getText().toString(), sectionName);
+            System.out.println("... going to set rating value : "+ ratingValue);
+            Item newItem = MainActivity.getDBHandler().createItem(itemName.getText().toString(),
+                    description.getText().toString(), (int) ratingValue, sectionName);
             Intent intent = new Intent(this, SectionViewActivity.class);
+            intent.putExtra(Constants.SECTION_NAME, sectionName);
             startActivity(intent);
+        } */
+
+        switch (id) {
+            case R.id.action_settings:
+                return true;
+            case R.id.save:
+                EditText itemName = (EditText) findViewById(R.id.item_name);
+                EditText description = (EditText) findViewById(R.id.item_description);
+                System.out.println("... going to set rating value : "+ ratingValue);
+                Item newItem = MainActivity.getDBHandler().createItem(itemName.getText().toString(),
+                        description.getText().toString(), (int) ratingValue, sectionName);
+                Intent intent = new Intent(this, SectionViewActivity.class);
+                intent.putExtra(Constants.SECTION_NAME, sectionName);
+                startActivity(intent);
+                return true;
+            case R.id.cancel:
+                Intent intent2 = new Intent(this, SectionViewActivity.class);
+                intent2.putExtra(Constants.SECTION_NAME, sectionName);
+                startActivity(intent2);
+                return true;
+
         }
 
         return super.onOptionsItemSelected(item);

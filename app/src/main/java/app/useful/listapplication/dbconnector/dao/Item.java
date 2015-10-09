@@ -8,14 +8,16 @@ import java.io.Serializable;
 public class Item implements Serializable{
 
     private long id;
+    private long rating;
     private String itemName;
     private String description;
     private String sectionName;
 
-    public Item(long id, String itemName, String description, String sectionName) {
+    public Item(long id, String itemName, String description, long rating, String sectionName) {
         this.id = id;
         this.itemName = itemName;
         this.description = description;
+        this.rating = rating;
         this.sectionName = sectionName;
     }
 
@@ -37,6 +39,14 @@ public class Item implements Serializable{
 
     public String getSectionName() {
         return sectionName;
+    }
+
+    public long getRating() {
+        return rating;
+    }
+
+    public void setRating(long rating) {
+        this.rating = rating;
     }
 
     // Will be used by the ArrayAdapter in the ListView

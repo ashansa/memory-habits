@@ -23,16 +23,17 @@ public class ItemTableHandler extends SQLiteOpenHelper {
     private static final String TABLE_ITEM = "items";
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_ITEM = "item";
-    private static final String COLUMN_SECTION = "section";
     private static final String COLUMN_DESCRIPTION = "description";
+    private static final String RATING = "rating";
+    private static final String COLUMN_SECTION = "section";
 
     private static final String CREATE_TABLE = "create table " + TABLE_ITEM + "( " + COLUMN_ID +
             " integer primary key autoincrement, " + COLUMN_ITEM + " text not null, " +
-            COLUMN_DESCRIPTION + " text not null, " + COLUMN_SECTION + " text not null );";
+            COLUMN_DESCRIPTION + " text not null, " + RATING + " integer not null, " + COLUMN_SECTION + " text not null );";
 
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_ITEM;
 
-    private String[] allColumns = { COLUMN_ID, COLUMN_ITEM, COLUMN_DESCRIPTION, COLUMN_SECTION};
+    private String[] allColumns = { COLUMN_ID, COLUMN_ITEM, COLUMN_DESCRIPTION, RATING, COLUMN_SECTION};
     private SQLiteDatabase database;
 
 
@@ -56,11 +57,13 @@ public class ItemTableHandler extends SQLiteOpenHelper {
         db.execSQL(DROP_TABLE);
         onCreate(db);
     }
+    /*
 
-    public Item createItem(String itemName, String description, String sectionName) {
+    public Item createItem(String itemName, String description, int rating, String sectionName) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_ITEM, itemName);
         values.put(COLUMN_DESCRIPTION, description);
+        values.put(RATING, rating);
         values.put(COLUMN_SECTION, sectionName);
         long insertId = database.insert(TABLE_ITEM, null, values);
         Cursor cursor = database.query(TABLE_ITEM, allColumns, COLUMN_ID+ " = " + insertId, null,
@@ -93,7 +96,8 @@ public class ItemTableHandler extends SQLiteOpenHelper {
     }
 
     private Item cursorToSection(Cursor cursor) {
-        Item item = new Item(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
+        Item item = new Item(cursor.getLong(0), cursor.getString(1), cursor.getString(2),
+                cursor.getInt(3), cursor.getString(4));
         return item;
-    }
+    }*/
 }

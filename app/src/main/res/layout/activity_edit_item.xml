@@ -4,41 +4,40 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="app.useful.listapplication.activity.AddItemActivity">
+    tools:context="app.useful.listapplication.activity.EditItemActivity">
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/item_name"
+        android:id="@+id/item_name_edit"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:hint="@string/item_name"
         android:singleLine="true"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
-        android:id="@+id/item_description"
-        android:hint="@string/description"
+        android:id="@+id/item_description_edit"
         android:singleLine="true"
-        android:layout_below="@+id/item_name"
+        android:layout_below="@+id/item_name_edit"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/item_name"
-        android:layout_alignEnd="@+id/item_name"/>
+        android:layout_alignRight="@+id/item_name_edit"
+        android:layout_alignEnd="@+id/item_name_edit"
+        android:layout_marginTop="29dp"/>
 
     <RatingBar
-        android:id="@+id/rating"
+        android:id="@+id/rating_edit"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@+id/item_description"
+        android:layout_below="@+id/item_description_edit"
         android:numStars="5"
         android:stepSize="1.0"
-        android:rating="1.0" />
+        android:rating="1.0"
         android:layout_marginTop="29dp"  />
 
 </RelativeLayout>
