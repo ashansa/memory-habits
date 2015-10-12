@@ -12,8 +12,7 @@
     <item
         android:id="@+id/delete_all"
         android:title="@string/delete_all"
-        android:icon="@drawable/delete"
         android:orderInCategory="100"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
 
 </menu>

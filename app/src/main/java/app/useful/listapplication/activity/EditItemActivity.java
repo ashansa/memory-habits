@@ -66,11 +66,11 @@ public class EditItemActivity extends ActionBarActivity {
                 intent.putExtra(Constants.SECTION_NAME, itemToUpdate.getSectionName());
                 startActivity(intent);
                 return true;
-            case R.id.cancel:
+            /*case R.id.cancel:
                 Intent intent2 = new Intent(this, SectionViewActivity.class);
                 intent2.putExtra(Constants.SECTION_NAME, itemToUpdate.getSectionName());
                 startActivity(intent2);
-                return true;
+                return true;*/
 
         }
 

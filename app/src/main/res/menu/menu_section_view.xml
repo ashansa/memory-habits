@@ -11,6 +11,22 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/edit_item"
+        android:icon="@drawable/edit"
+        android:orderInCategory="100"
+        android:visible="false"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/delete_item"
+        android:icon="@drawable/delete"
+        android:orderInCategory="100"
+        android:visible="false"
+        app:showAsAction="always"
+        />
+
+    <item
         android:id="@+id/delete_all"
         android:title="@string/delete_all"
         android:icon="@drawable/delete"

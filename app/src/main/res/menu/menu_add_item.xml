@@ -12,11 +12,11 @@
         android:orderInCategory="100"
         app:showAsAction="always" />
 
-    <item
+    <!--<item
         android:id="@+id/cancel"
         android:title="Cancel"
         android:icon="@drawable/cancel"
         android:orderInCategory="100"
-        app:showAsAction="always" />
+        app:showAsAction="always" />-->
 
 </menu>

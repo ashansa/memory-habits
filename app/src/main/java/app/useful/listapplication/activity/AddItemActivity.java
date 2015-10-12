@@ -86,12 +86,11 @@ public class AddItemActivity extends ActionBarActivity {
                 intent.putExtra(Constants.SECTION_NAME, sectionName);
                 startActivity(intent);
                 return true;
-            case R.id.cancel:
+            /*case R.id.cancel:
                 Intent intent2 = new Intent(this, SectionViewActivity.class);
                 intent2.putExtra(Constants.SECTION_NAME, sectionName);
                 startActivity(intent2);
-                return true;
-
+                return true;*/
         }
 
         return super.onOptionsItemSelected(item);

@@ -22,6 +22,7 @@ import app.useful.listapplication.Constants;
 import app.useful.listapplication.R;
 import app.useful.listapplication.dbconnector.DBHandler;
 import app.useful.listapplication.dbconnector.dao.Item;
+import app.useful.listapplication.dbconnector.dao.Section;
 
 
 public class SectionViewActivity extends ActionBarActivity {
@@ -34,6 +35,10 @@ public class SectionViewActivity extends ActionBarActivity {
 
     Item selectedItem;
     View selectedView;
+
+    MenuItem addMenuItem;
+    MenuItem editMenuItem;
+    MenuItem deleteMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +77,11 @@ public class SectionViewActivity extends ActionBarActivity {
                 selectedItem = items.get(position);
                 selectedView = view;
 
-               //action menu
+                hideEditOptions(false);
+                view.setBackgroundColor(Color.parseColor("#8ad5f0"));
+
+
+               /*//action menu
                 if (mActionMode != null) {
                     return false;
                 }
@@ -81,14 +90,14 @@ public class SectionViewActivity extends ActionBarActivity {
                 mActionMode = SectionViewActivity.this.startActionMode(mActionModeCallback);
                 view.setSelected(true);
                 view.setBackgroundColor(Color.parseColor("#8ad5f0"));
-                getSupportActionBar().hide();
+                getSupportActionBar().hide();*/
                 return true;
             }
         });
 
     }
 
-    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+    /*private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
 
         // Called when the action mode is created; startActionMode() was called
         @Override
@@ -135,7 +144,7 @@ public class SectionViewActivity extends ActionBarActivity {
             }
             getSupportActionBar().show();
         }
-    };
+    };*/
 
     private ListView updateView() {
         final List<Item> items = dbHandler.getItemsInSection(sectionName);
@@ -169,6 +178,9 @@ public class SectionViewActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_section_view, menu);
+        addMenuItem = menu.getItem(0);
+        editMenuItem = menu.getItem(1);
+        deleteMenuItem = menu.getItem(2);
         return true;
     }
 
@@ -185,6 +197,14 @@ public class SectionViewActivity extends ActionBarActivity {
                 intent.putExtra(Constants.SECTION_NAME, sectionName);
                 startActivity(intent);
                 break;
+            case R.id.delete_item:
+                handleDeleteItem(selectedItem);
+                return true;
+            case R.id.edit_item:
+                Intent intent2 = new Intent(SectionViewActivity.this, EditItemActivity.class);
+                intent2.putExtra(Constants.ITEM, selectedItem);
+                startActivity(intent2);
+                return true;
             case R.id.delete_all:
                 recreateTable();
                 break;
@@ -198,6 +218,42 @@ public class SectionViewActivity extends ActionBarActivity {
 
         itemArrayAdapter.notifyDataSetChanged();
         return super.onOptionsItemSelected(item);
+    }
+
+    private void handleDeleteItem(final Item itemToDelete) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setTitle("Delete");
+        dialogBuilder.setMessage("Do you want to delete the item?");
+        dialogBuilder.setIcon(R.drawable.delete);
+        dialogBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dbHandler.deleteItem(itemToDelete);
+                hideEditOptions(true);
+                updateView();
+            }
+        });
+        dialogBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selectedView.setBackgroundColor(Color.TRANSPARENT);
+                hideEditOptions(true);
+            }
+        });
+
+        dialogBuilder.show();
+    }
+
+    private void hideEditOptions(boolean hideEditOptions) {
+        if(hideEditOptions) {
+            addMenuItem.setVisible(true);
+            editMenuItem.setVisible(false);
+            deleteMenuItem.setVisible(false);
+        } else {
+            addMenuItem.setVisible(false);
+            editMenuItem.setVisible(true);
+            deleteMenuItem.setVisible(true);
+        }
     }
 
 
