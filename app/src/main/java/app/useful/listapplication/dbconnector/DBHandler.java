@@ -85,7 +85,12 @@ public class DBHandler extends SQLiteOpenHelper {
         Section newSection = cursorToSection(cursor);
         cursor.close();
         return newSection;
+    }
 
+    public void deleteSection(Section section) {
+        System.out.println("Deleting section with id: " + section.getId());
+        database.delete(TABLE_SECTIONS, COLUMN_ID + " = " + section.getId(), null);
+        //TODO delete all items in that section
     }
 
     public List<Section> getAllSections() {
@@ -141,7 +146,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public void deleteItem(Item item) {
         long id = item.getId();
-        System.out.println("Comment deleted with id: " + id);
+        System.out.println("Deleting item with id: " + id);
         database.delete(TABLE_ITEMS, COLUMN_ID + " = " + id, null);
     }
 

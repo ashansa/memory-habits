@@ -10,6 +10,22 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/delete_section"
+        android:icon="@drawable/delete"
+        android:orderInCategory="100"
+        android:visible="false"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/cancel"
+        android:title="Cancel"
+        android:icon="@drawable/cancel"
+        android:orderInCategory="100"
+        android:visible="false"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/delete_all"
         android:title="@string/delete_all"
         android:orderInCategory="100"

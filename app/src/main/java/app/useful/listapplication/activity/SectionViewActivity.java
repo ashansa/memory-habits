@@ -8,10 +8,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.ActionMode;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -22,7 +20,6 @@ import app.useful.listapplication.Constants;
 import app.useful.listapplication.R;
 import app.useful.listapplication.dbconnector.DBHandler;
 import app.useful.listapplication.dbconnector.dao.Item;
-import app.useful.listapplication.dbconnector.dao.Section;
 
 
 public class SectionViewActivity extends ActionBarActivity {
@@ -39,6 +36,7 @@ public class SectionViewActivity extends ActionBarActivity {
     MenuItem addMenuItem;
     MenuItem editMenuItem;
     MenuItem deleteMenuItem;
+    MenuItem cancelMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +75,7 @@ public class SectionViewActivity extends ActionBarActivity {
                 selectedItem = items.get(position);
                 selectedView = view;
 
-                hideEditOptions(false);
+                showEditOptions(true);
                 view.setBackgroundColor(Color.parseColor("#8ad5f0"));
 
 
@@ -181,6 +179,7 @@ public class SectionViewActivity extends ActionBarActivity {
         addMenuItem = menu.getItem(0);
         editMenuItem = menu.getItem(1);
         deleteMenuItem = menu.getItem(2);
+        cancelMenuItem = menu.getItem(3);
         return true;
     }
 
@@ -204,6 +203,10 @@ public class SectionViewActivity extends ActionBarActivity {
                 Intent intent2 = new Intent(SectionViewActivity.this, EditItemActivity.class);
                 intent2.putExtra(Constants.ITEM, selectedItem);
                 startActivity(intent2);
+                return true;
+            case R.id.cancel:
+                selectedView.setBackgroundColor(Color.TRANSPARENT);
+                showEditOptions(false);
                 return true;
             case R.id.delete_all:
                 recreateTable();
@@ -229,7 +232,7 @@ public class SectionViewActivity extends ActionBarActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dbHandler.deleteItem(itemToDelete);
-                hideEditOptions(true);
+                showEditOptions(false);
                 updateView();
             }
         });
@@ -237,22 +240,24 @@ public class SectionViewActivity extends ActionBarActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 selectedView.setBackgroundColor(Color.TRANSPARENT);
-                hideEditOptions(true);
+                showEditOptions(false);
             }
         });
 
         dialogBuilder.show();
     }
 
-    private void hideEditOptions(boolean hideEditOptions) {
-        if(hideEditOptions) {
-            addMenuItem.setVisible(true);
-            editMenuItem.setVisible(false);
-            deleteMenuItem.setVisible(false);
-        } else {
+    private void showEditOptions(boolean showEditOptions) {
+        if(showEditOptions) {
             addMenuItem.setVisible(false);
             editMenuItem.setVisible(true);
             deleteMenuItem.setVisible(true);
+            cancelMenuItem.setVisible(true);
+        } else {
+            addMenuItem.setVisible(true);
+            editMenuItem.setVisible(false);
+            deleteMenuItem.setVisible(false);
+            cancelMenuItem.setVisible(false);
         }
     }
 
