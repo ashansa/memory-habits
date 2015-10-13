@@ -16,7 +16,7 @@ import app.useful.listapplication.dbconnector.dao.Item;
 public class AddItemActivity extends ActionBarActivity {
 
     String sectionName;
-    static float ratingValue;
+    static float ratingValue = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

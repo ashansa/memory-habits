@@ -37,8 +37,8 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/item_description"
         android:numStars="5"
-        android:stepSize="1.0"
-        android:rating="1.0" />
+        android:stepSize="1"
+        android:rating="1" />
         android:layout_marginTop="29dp"  />
 
 </RelativeLayout>

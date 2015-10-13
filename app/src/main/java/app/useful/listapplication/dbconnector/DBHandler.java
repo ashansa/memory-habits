@@ -148,7 +148,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public List<Item> getItemsInSection(String sectionName) {
         List<Item> items = new ArrayList<Item>();
         Cursor cursor = database.query(TABLE_ITEMS, itemTableAllColumns, COLUMN_SECTION + "=?" ,
-                new String[]{sectionName}, null, null, null);
+                new String[]{sectionName}, null, null, COLUMN_RATING + " DESC");
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Item item = cursorToItem(cursor);
