@@ -89,8 +89,11 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public void deleteSection(Section section) {
         System.out.println("Deleting section with id: " + section.getId());
+        List<Item> items = getItemsInSection(section.getSectionName());
         database.delete(TABLE_SECTIONS, COLUMN_ID + " = " + section.getId(), null);
-        //TODO delete all items in that section
+        for (Item item : items) {
+            deleteItem(item);
+        }
     }
 
     public List<Section> getAllSections() {
